@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div>
+    <ul>
+        <li>@Html.RouteLink("Hello World Handler (new instance each request)", "hello-world") @Url.RouteUrl("hello-world")</li>
+        <li>@Html.RouteLink("Hello World Handler (singleton) ", "hello-world2") @Url.RouteUrl("hello-world2")</li>
+    </ul>
+
+    <p>GroupRoute Samples</p>
+    <ul>
+        <li>@Html.RouteLink("Hello World Child", "group", new { __RouteName = "hello-world3" }) 
+        @Url.RouteUrl("group", new { __RouteName = "hello-world3" })</li>
+        <li>@Html.RouteLink("Hello World Child", "group", new { __RouteName = "hello-world4" }) 
+        @Url.RouteUrl("group", new { __RouteName = "hello-world4" })</li>
+    </ul>
+
+    <p>GroupRoute w/ MVC Children Samples</p>
+    <ul>
+        <li>@Html.RouteLink("Foo1 Child", "group2", new { controller="Home", __RouteName = "foo1" }) 
+        @Url.RouteUrl("group2", new { controller="Home", __RouteName = "foo1" })</li>
+        <li>@Html.RouteLink("Foo2 Child", "group2", new { controller="Home", __RouteName = "foo2" }) 
+        @Url.RouteUrl("group2", new { controller="Home", __RouteName = "foo2" })</li>
+    </ul>
+
+</div>

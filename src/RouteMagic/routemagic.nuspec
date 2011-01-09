@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?> 
+<package> 
+  <metadata> 
+    <id>routemagic</id> 
+    <version>0.1.0</version> 
+    <authors>Phil Haack</authors> 
+    <description>RouteMagic is a library of useful extensions to ASP.NET Routing.</description> 
+    <language>en-US</language>
+    <licenseUrl>http://www.opensource.org/licenses/ms-pl.html</licenseUrl>
+  </metadata>
+  <files>
+    <file src="RouteMagic.dll" target="lib" />
+    <file src="../../../license.txt" />
+  </files>
+</package>
