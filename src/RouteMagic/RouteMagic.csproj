@@ -42,9 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpHandlers\DelegateHttpHandler.cs" />
+    <Compile Include="HttpHandlers\RedirectHttpHandler.cs" />
     <Compile Include="Internals\IVirtualPathResolver.cs" />
+    <Compile Include="Internals\RedirectRoute.cs" />
     <Compile Include="Internals\StringExtensions.cs" />
     <Compile Include="Internals\VirtualPathResolver.cs" />
+    <Compile Include="RedirectRouteExtensions.cs" />
     <Compile Include="RouteHandlers\DelegateRouteHandler.cs" />
     <Compile Include="RouteHandlers\HttpHandlerRouteHandler~1.cs" />
     <Compile Include="RouteHandlers\HttpHandlerRouteHandler.cs" />
@@ -55,15 +58,7 @@
     <Compile Include="RouteExtensions.cs" />
     <Compile Include="RouteValueDictionaryExtensions.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="routemagic.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)\packages\NuGet.CommandLine.1.0.11220.26\Tools\NuGet.exe" pack routemagic.nuspec</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

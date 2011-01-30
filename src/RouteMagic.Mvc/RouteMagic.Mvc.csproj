@@ -52,15 +52,7 @@
       <Name>RouteMagic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="routemagic.mvc.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)\packages\NuGet.CommandLine.1.0.11220.26\Tools\NuGet.exe" pack routemagic.mvc.nuspec</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

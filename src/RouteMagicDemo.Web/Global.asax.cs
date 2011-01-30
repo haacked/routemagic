@@ -15,6 +15,11 @@ namespace RouteMagicDemo.Web {
         public static void RegisterRoutes(RouteCollection routes) {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Redirect From Old Route to New route
+            var targetRoute = routes.Map("target", "yo/{id}/{action}", new { controller = "Home" });
+            routes.Redirect(r => r.MapRoute("legacy", "foobar/{id}/baz/{action}")).To(targetRoute, new { id = "123", action = "index" });
+            routes.Redirect(r => r.MapRoute("legacy2", "foobar/baz")).To(targetRoute, new { id = "123", action = "index" });
+
             // Map HTTP Handlers
             routes.MapHttpHandler<HelloWorldHttpHandler>("hello-world", "handlers/helloworld");
             routes.MapHttpHandler("hello-world2", new HelloWorldHttpHandler(), "handlers/helloworld2");
