@@ -63,7 +63,5 @@ namespace RouteMagic {
             route.DataTokens.SetRouteName(routeName);
             return route;
         }
-
-
     }
 }
