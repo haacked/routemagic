@@ -5,7 +5,7 @@ using RouteMagic.Internals;
 
 namespace RouteMagic {
     public static class RouteRegistrationExtensions {
-        // This method requires full trust.
+        // This method requires full trust. It doesn't require an app domain restart.
         // See http://haacked.com/archive/2010/01/17/editable-routes.aspx for more details.
         public static void RegisterRoutes(this RouteCollection routes,
             string virtualPath) {
@@ -17,7 +17,8 @@ namespace RouteMagic {
               vp => routes.ReloadRoutes(vp));
         }
 
-        // MEDIUM TRUST: Use this method. Place Routes.cs in the ~/App_Code directory.
+        // This method works in medium trust, but requires an app domain restart.
+        // Place Routes.cs in the ~/App_Code directory.
         // See http://haacked.com/archive/2010/01/18/editable-routes-in-medium-trust.aspx for more info.
         public static void RegisterAppCodeRoutes(this RouteCollection routes) {
             var type = BuildManager.GetType("Routes", false/*throwOnError*/);
