@@ -10,7 +10,7 @@ namespace RouteMagic {
             if (String.IsNullOrEmpty(virtualPath)) {
                 throw new ArgumentNullException("virtualPath");
             }
-
+            routes.ReloadRoutes(virtualPath);
             ConfigFileChangeNotifier.Listen(virtualPath, vp => routes.ReloadRoutes(vp));
         }
 
