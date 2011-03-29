@@ -25,19 +25,6 @@ namespace RouteMagic {
             return route;
         }
 
-        public static Route MapHttpHandler<THandler>(this RouteCollection routes, string name, string url) where THandler : IHttpHandler {
-            return routes.MapHttpHandler<THandler>(name, url, defaults: null, constraints: null);
-        }
-
-        public static Route MapHttpHandler<THandler>(this RouteCollection routes, string name, string url, object defaults, object constraints) where THandler : IHttpHandler {
-            var route = new Route(url, new HttpHandlerRouteHandler<THandler>(r => DependencyResolver.Current.GetService<THandler>()));
-            route.Defaults = new RouteValueDictionary(defaults);
-            route.Constraints = new RouteValueDictionary(constraints);
-            routes.Add(name, route);
-            route.SetRouteName(name);
-            return route;
-        }
-
         public static IHtmlString HandlerLink(this HtmlHelper htmlHelper, string linkText, string routeName) {
             return htmlHelper.HandlerLink(linkText, routeName, routeValues: null, htmlAttributes: null);
         }
