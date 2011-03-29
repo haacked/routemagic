@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>RouteMagickKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\RouteMagickKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -71,9 +71,17 @@
     <Compile Include="RouteValueDictionaryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RouteMagickKey.snk" />
+    <None Include="..\RouteMagickKey.snk">
+      <Link>RouteMagickKey.snk</Link>
+    </None>
+    <None Include="routemagic.nuspec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)..\tools\NuGet.exe" pack $(ProjectName).nuspec -OutputDirectory $(SolutionDir)..\out</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

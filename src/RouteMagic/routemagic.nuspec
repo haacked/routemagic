@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>RouteMagic</id>
+    <version>0.2.3</version>
+    <authors>Phil Haack</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>RouteMagic is a library of useful Routing helpers. See http://haacked.com/archive/2011/01/30/introducing-routemagic.aspx for more information. </description>
+    <tags>routing asp.net</tags>
+    <language>en-US</language>
+    <licenseUrl>http://routemagic.codeplex.com/license</licenseUrl>
+    <projectUrl>http://routemagic.codeplex.com</projectUrl>
+  </metadata>
+  <files>
+    <file src="RouteMagic.dll" target="lib" />
+  </files>
+</package>
