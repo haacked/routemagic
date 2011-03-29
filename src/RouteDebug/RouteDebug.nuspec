@@ -11,4 +11,9 @@
     <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
     <projectUrl>http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx</projectUrl>
   </metadata>
+  <files>
+    <file src="RouteDebug.dll" target="lib" />
+    <file src="license.txt" />
+    <file src="RouteDebugger.Readme.txt" target="Content/App_ReadMe" />
+  </files>
 </package>

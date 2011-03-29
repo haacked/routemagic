@@ -2,7 +2,7 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>RouteMagic</id>
-    <version>0.2.3</version>
+    <version>0.2.2</version>
     <authors>Phil Haack</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>RouteMagic is a library of useful Routing helpers. See http://haacked.com/archive/2011/01/30/introducing-routemagic.aspx for more information. </description>
@@ -13,5 +13,6 @@
   </metadata>
   <files>
     <file src="RouteMagic.dll" target="lib" />
+    <file src="license.txt" />
   </files>
 </package>
