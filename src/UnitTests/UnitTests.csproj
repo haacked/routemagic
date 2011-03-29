@@ -38,8 +38,10 @@
       <HintPath>..\packages\PowerAssert.1.0\PowerAssert.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,6 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RouteEvaluator.cs" />
+    <Compile Include="RouteMockHelpers.cs" />
+    <Compile Include="RouteTests.cs" />
     <Compile Include="RouteValueDictionaryExtensionsTest.cs" />
     <Compile Include="GroupRouteTest.cs" />
     <Compile Include="HttpHandlers\DelegateHttpHandlerTest.cs" />
@@ -70,6 +75,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RouteDebuggerDemoWeb\RouteDebuggerDemoWeb.csproj">
+      <Project>{40F914CD-F707-4A4D-AF7B-75E8928055BB}</Project>
+      <Name>RouteDebuggerDemoWeb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RouteMagic.Mvc\RouteMagic.Mvc.csproj">
       <Project>{D9321DA3-F3AC-4567-8452-B1B5D5633045}</Project>
       <Name>RouteMagic.Mvc</Name>
