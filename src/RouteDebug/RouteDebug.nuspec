@@ -2,7 +2,6 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>routedebugger</id>
-    <version>1.1.0</version>
     <authors>Phil Haack</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Route Debugger is a little utility I wrote to help debug issues with route configurations. See http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx</description>
@@ -11,9 +10,4 @@
     <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
     <projectUrl>http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx</projectUrl>
   </metadata>
-  <files>
-    <file src="RouteDebug.dll" target="lib" />
-    <file src="license.txt" />
-    <file src="RouteDebugger.Readme.txt" target="Content/App_ReadMe" />
-  </files>
 </package>

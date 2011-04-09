@@ -7,6 +7,9 @@ using RouteMagic.RouteHandlers;
 
 namespace RouteMagic {
     public static class MvcRouteExtenstions {
+        
+        // The Map methods map to the MvcRouteHandler
+
         public static Route Map(this RouteCollection routes, string name, string url) {
             return routes.Map(name, url, null, null, null);
         }

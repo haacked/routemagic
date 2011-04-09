@@ -1,21 +1,13 @@
 <?xml version="1.0"?>
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <id>RouteMagic.Mvc</id>
-    <version>0.2.2</version>
-    <authors>Phil Haack</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>RouteMagic.Mvc is a library of useful Routing helpers specific to ASP.NET MVC. See http://haacked.com/archive/2011/01/30/introducing-routemagic.aspx for more information. </description>
     <tags>routing asp.net aspnetmvc</tags>
     <language>en-US</language>
     <licenseUrl>http://routemagic.codeplex.com/license</licenseUrl>
     <projectUrl>http://routemagic.codeplex.com</projectUrl>
     <dependencies>
-		<dependency id="RouteMagic" version="0.2.2" />
+		  <dependency id="RouteMagic" version="0.2.2.1" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="RouteMagic.Mvc.dll" target="lib" />
-    <file src="license.txt" />
-  </files>
 </package>

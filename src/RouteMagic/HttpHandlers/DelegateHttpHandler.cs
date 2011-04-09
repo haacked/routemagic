@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Web;
 
-namespace RouteMagic.HttpHandlers
-{
-    public class DelegateHttpHandler : IHttpHandler
-    {
-        public DelegateHttpHandler(Action<HttpContext> action, bool isReusable)
-        {
+namespace RouteMagic.HttpHandlers {
+    public class DelegateHttpHandler : IHttpHandler {
+        public DelegateHttpHandler(Action<HttpContext> action, bool isReusable) {
             IsReusable = isReusable;
             HttpHandlerAction = action;
         }
 
-        public bool IsReusable
-        {
+        public bool IsReusable {
             get;
             private set;
         }
 
-        public Action<HttpContext> HttpHandlerAction
-        {
+        public Action<HttpContext> HttpHandlerAction {
             get;
             private set;
         }
 
-        public void ProcessRequest(HttpContext context)
-        {
+        public void ProcessRequest(HttpContext context) {
             var action = HttpHandlerAction;
-            if (action != null)
-            {
+            if (action != null) {
                 action(context);
             }
         }

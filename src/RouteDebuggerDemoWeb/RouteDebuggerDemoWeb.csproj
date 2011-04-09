@@ -80,9 +80,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RouteDebug\RouteDebug.csproj">
+    <ProjectReference Include="..\RouteDebug\RouteDebugger.csproj">
       <Project>{09548C4E-F0C1-428A-BC3A-BFBB9328D7C7}</Project>
-      <Name>RouteDebug</Name>
+      <Name>RouteDebugger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
