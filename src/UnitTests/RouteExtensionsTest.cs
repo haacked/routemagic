@@ -3,6 +3,7 @@ using System.Web.Routing;
 using Moq;
 using PowerAssert;
 using RouteMagic;
+using RouteMagic.HttpHandlers;
 using Xunit;
 
 namespace UnitTests {
@@ -18,7 +19,7 @@ namespace UnitTests {
             var routes = new RouteCollection();
 
             // Act
-            var route = routes.MapHttpHandler("route-name", httpHandler, "url");
+            var route = routes.MapHttpHandler("route-name", "url", httpHandler);
 
             // Assert
             PAssert.IsTrue(() => route.GetRouteName() == "route-name");
@@ -37,6 +38,23 @@ namespace UnitTests {
             // Assert
             PAssert.IsTrue(() => route.GetRouteName() == "route-name");
             PAssert.IsTrue(() => route.RouteHandler.GetHttpHandler(null) == httpHandler);
+        }
+
+        [Fact]
+        public void MapDelegateSetsRouteNameAndHttpHandlerRouteHandler() {
+            // Arrange
+            var httpHandler = new Mock<IHttpHandler>().Object;
+            var routes = new RouteCollection();
+            bool isSet = false;
+
+            // Act
+            var route = routes.MapDelegate("route-name", "url", c => isSet = true);
+            route.RouteHandler.GetHttpHandler(null).ProcessRequest(null);
+
+            // Assert
+            PAssert.IsTrue(() => route.GetRouteName() == "route-name");
+            PAssert.IsTrue(() => route.RouteHandler.GetHttpHandler(null).GetType() == typeof(DelegateHttpHandler));
+            PAssert.IsTrue(() => isSet == true);
         }
     }
 }

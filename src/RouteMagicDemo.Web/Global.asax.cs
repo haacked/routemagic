@@ -20,13 +20,16 @@ namespace RouteMagicDemo.Web {
             routes.Redirect(r => r.MapRoute("legacy", "foobar/{id}/baz/{action}")).To(targetRoute, new { id = "123", action = "index" });
             routes.Redirect(r => r.MapRoute("legacy2", "foobar/baz")).To(targetRoute, new { id = "123", action = "index" });
 
+            // Map Delegate
+            routes.MapDelegate("map-delegate", "this-is-a-test", c => c.Response.Write("Yeah, it's a test"));
+
             // Map HTTP Handlers
             routes.MapHttpHandler<HelloWorldHttpHandler>("hello-world", "handlers/helloworld");
-            routes.MapHttpHandler("hello-world2", new HelloWorldHttpHandler(), "handlers/helloworld2");
+            routes.MapHttpHandler("hello-world2", "handlers/helloworld2", new HelloWorldHttpHandler());
 
             RouteCollection someRoutes = new RouteCollection();
             someRoutes.MapHttpHandler<HelloWorldHttpHandler>("hello-world3", "handlers/helloworld3");
-            someRoutes.MapHttpHandler("hello-world4", new HelloWorldHttpHandler(), "handlers/helloworld4");
+            someRoutes.MapHttpHandler("hello-world4", "handlers/helloworld4", new HelloWorldHttpHandler());
             var groupRoute = new GroupRoute("~/section", someRoutes);
             routes.Add("group", groupRoute);
 

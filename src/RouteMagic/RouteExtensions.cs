@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Routing;
+using RouteMagic.HttpHandlers;
 using RouteMagic.RouteHandlers;
 
 namespace RouteMagic {
@@ -22,7 +23,7 @@ namespace RouteMagic {
             return route;
         }
 
-        public static Route MapHttpHandler(this RouteCollection routes, string name, IHttpHandler httpHandler, string url) {
+        public static Route MapHttpHandler(this RouteCollection routes, string name, string url, IHttpHandler httpHandler) {
             return routes.MapHttpHandler(httpHandler, name, url, defaults: null, constraints: null);
         }
 
@@ -40,6 +41,10 @@ namespace RouteMagic {
             routes.Add(name, route);
             route.SetRouteName(name);
             return route;
+        }
+
+        public static Route MapDelegate(this RouteCollection routes, string name, string url, Action<HttpContext> handler) {
+            return routes.MapHttpHandler(name, url, new DelegateHttpHandler(handler, false));
         }
 
         public static string GetRouteName(this Route route) {
