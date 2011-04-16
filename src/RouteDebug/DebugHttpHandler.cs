@@ -19,7 +19,7 @@ namespace RouteDebug {
 
                 var vpd = RouteTable.Routes.GetVirtualPath(requestContext, rvalues);
                 if (vpd != null) {
-                    generatedUrlInfo = "<p><label>Generated URL</label>: ";
+                    generatedUrlInfo = "<p><label style=\"font-weight: bold; font-size: 1.1em;\">Generated URL</label>: ";
                     generatedUrlInfo += "<strong style=\"color: #00a;\">" + vpd.VirtualPath + "</strong>";
                     var vpdRoute = vpd.Route as Route;
                     if (vpdRoute != null) {
@@ -32,45 +32,40 @@ namespace RouteDebug {
 <head>
     <style>
         #haackroutedebugger, #haackroutedebugger td, #haackroutedebugger th {{background-color: #fff; font-family: verdana, helvetica, san-serif; font-size: small;}}
-        #haackroutedebugger .message {{font-size: .9em;}}
-        #haackroutedebugger caption {{font-weight: bold;}}
-        #haackroutedebugger tr.header, #haackroutedebugger tr.header th {{background-color: #ffc;}}
-        #haackroutedebugger label {{font-weight: bold; font-size: 1.1em;}}
-        #haackroutedebugger .false {{color: #c00;}}
-        #haackroutedebugger .true {{color: #0c0;}}
+        #haackroutedebugger tr.header td, #haackroutedebugger tr.header th {{background-color: #ffc;}}
     </style>
 </head>
-<body id=""haackroutedebugger"">
+<body id=""haackroutedebugger"" style=""background-color: #fff;"">
 <hr style=""width: 100%; border: solid 1px #000;"" />
 <h1>Route Debugger</h1>
 <div id=""main"">
-    <p class=""message"">
+    <p style=""font-size: .9em;"">
         Type in a url in the address bar to see which defined routes match it. 
         A {{*catchall}} route is added to the list of routes automatically in 
         case none of your routes match.
     </p>
-    <p class=""message"">
+    <p style=""font-size: .9em;"">
         To generate URLs using routing, supply route values via the query string. example: <code>http://localhost:14230/?id=123</code>
     </p>
-    <p><label>Matched Route</label>: {1}</p>
+    <p><label style=""font-weight: bold; font-size: 1.1em;"">Matched Route</label>: {1}</p>
     {5}
     <div style=""float: left;"">
         <table border=""1"" cellpadding=""3"" cellspacing=""0"" width=""300"">
-            <caption>Route Data</caption>
+            <caption style=""font-weight: bold;"">Route Data</caption>
             <tr class=""header""><th>Key</th><th>Value</th></tr>
             {0}
         </table>
     </div>
     <div style=""float: left; margin-left: 10px;"">
         <table border=""1"" cellpadding=""3"" cellspacing=""0"" width=""300"">
-            <caption>Data Tokens</caption>
+            <caption style=""font-weight: bold;"">Data Tokens</caption>
             <tr class=""header""><th>Key</th><th>Value</th></tr>
             {4}
         </table>
     </div>
     <hr style=""clear: both;"" />
     <table border=""1"" cellpadding=""3"" cellspacing=""0"">
-        <caption>All Routes</caption>
+        <caption style=""font-weight: bold;"">All Routes</caption>
         <tr class=""header"">
             <th>Matches Current Request</th>
             <th>Url</th>
@@ -99,7 +94,7 @@ namespace RouteDebug {
             using (RouteTable.Routes.GetReadLock()) {
                 foreach (RouteBase routeBase in RouteTable.Routes) {
                     bool matchesCurrentRequest = (routeBase.GetRouteData(requestContext.HttpContext) != null);
-                    string matchText = string.Format(@"<span class=""{0}"">{0}</span>", matchesCurrentRequest);
+                    string matchText = string.Format(@"<span{0}>{1}</span>", BoolStyle(matchesCurrentRequest), matchesCurrentRequest);
                     string url = "n/a";
                     string defaults = "n/a";
                     string constraints = "n/a";
@@ -141,7 +136,7 @@ namespace RouteDebug {
                     matchedRouteUrl = matchedRoute.Url;
             }
             else {
-                matchedRouteUrl = "<strong class=\"false\">NO MATCH!</strong>";
+                matchedRouteUrl = string.Format("<strong{0}>NO MATCH!</strong>", BoolStyle(false));
             }
 
             context.Response.Write(string.Format(htmlFormat
@@ -163,6 +158,11 @@ namespace RouteDebug {
             if (display.EndsWith(", "))
                 display = display.Substring(0, display.Length - 2);
             return display;
+        }
+
+        private static string BoolStyle(bool boolean) {
+            if (boolean) return " style=\"color: #0c0\"";
+            return " style=\"color: #c00\"";
         }
     }
 }
