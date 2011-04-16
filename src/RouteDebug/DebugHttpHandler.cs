@@ -31,16 +31,16 @@ namespace RouteDebug {
             string htmlFormat = @"<html>
 <head>
     <style>
-        body, td, th {{font-family: verdana; font-size: small;}}
-        .message {{font-size: .9em;}}
-        caption {{font-weight: bold;}}
-        tr.header {{background-color: #ffc;}}
-        label {{font-weight: bold; font-size: 1.1em;}}
-        .false {{color: #c00;}}
-        .true {{color: #0c0;}}
+        #routedebug, #routedebug td, #routedebug th {{background-color: #fff; font-family: verdana, helvetica, san-serif; font-size: small;}}
+        #routedebug .message {{font-size: .9em;}}
+        #routedebug caption {{font-weight: bold;}}
+        #routedebug tr.header, #routedebug tr.header th {{background-color: #ffc;}}
+        #routedebug label {{font-weight: bold; font-size: 1.1em;}}
+        #routedebug .false {{color: #c00;}}
+        #routedebug .true {{color: #0c0;}}
     </style>
 </head>
-<body>
+<body id=""routedebug"">
 <hr style=""width: 100%; border: solid 1px #000;"" />
 <h1>Route Debugger</h1>
 <div id=""main"">
