@@ -29,61 +29,58 @@ namespace RouteDebug {
             }
 
             string htmlFormat = @"<html>
-<head>
+<div id=""haackroutedebugger"" style=""background-color: #fff;"">
     <style>
         #haackroutedebugger, #haackroutedebugger td, #haackroutedebugger th {{background-color: #fff; font-family: verdana, helvetica, san-serif; font-size: small;}}
         #haackroutedebugger tr.header td, #haackroutedebugger tr.header th {{background-color: #ffc;}}
     </style>
-</head>
-<body id=""haackroutedebugger"" style=""background-color: #fff;"">
-<hr style=""width: 100%; border: solid 1px #000;"" />
-<h1>Route Debugger</h1>
-<div id=""main"">
-    <p style=""font-size: .9em;"">
-        Type in a url in the address bar to see which defined routes match it. 
-        A {{*catchall}} route is added to the list of routes automatically in 
-        case none of your routes match.
-    </p>
-    <p style=""font-size: .9em;"">
-        To generate URLs using routing, supply route values via the query string. example: <code>http://localhost:14230/?id=123</code>
-    </p>
-    <p><label style=""font-weight: bold; font-size: 1.1em;"">Matched Route</label>: {1}</p>
-    {5}
-    <div style=""float: left;"">
-        <table border=""1"" cellpadding=""3"" cellspacing=""0"" width=""300"">
-            <caption style=""font-weight: bold;"">Route Data</caption>
-            <tr class=""header""><th>Key</th><th>Value</th></tr>
-            {0}
+    <hr style=""width: 100%; border: solid 1px #000; margin:0; padding:0;"" />
+    <h1 style=""margin: 0; padding: 4px; border-bottom: solid 1px #bbb; padding-left: 10px; font-size: 1.2em; background-color: #ffc;"">Route Debugger</h1>
+    <div id=""main"" style=""margin-top:0; padding-top:0"">
+        <p style=""font-size: .9em; padding-top:0"">
+            Type in a url in the address bar to see which defined routes match it. 
+            A {{*catchall}} route is added to the list of routes automatically in 
+            case none of your routes match.
+        </p>
+        <p style=""font-size: .9em;"">
+            To generate URLs using routing, supply route values via the query string. example: <code>http://localhost:14230/?id=123</code>
+        </p>
+        <p><label style=""font-weight: bold; font-size: 1.1em;"">Matched Route</label>: {1}</p>
+        {5}
+        <div style=""float: left;"">
+            <table border=""1"" cellpadding=""3"" cellspacing=""0"" width=""300"">
+                <caption style=""font-weight: bold;"">Route Data</caption>
+                <tr class=""header""><th>Key</th><th>Value</th></tr>
+                {0}
+            </table>
+        </div>
+        <div style=""float: left; margin-left: 10px;"">
+            <table border=""1"" cellpadding=""3"" cellspacing=""0"" width=""300"">
+                <caption style=""font-weight: bold;"">Data Tokens</caption>
+                <tr class=""header""><th>Key</th><th>Value</th></tr>
+                {4}
+            </table>
+        </div>
+        <hr style=""clear: both;"" />
+        <table border=""1"" cellpadding=""3"" cellspacing=""0"">
+            <caption style=""font-weight: bold;"">All Routes</caption>
+            <tr class=""header"">
+                <th>Matches Current Request</th>
+                <th>Url</th>
+                <th>Defaults</th>
+                <th>Constraints</th>
+                <th>DataTokens</th>
+            </tr>
+            {2}
         </table>
+        <hr />
+        <h3>Current Request Info</h3>
+        <p>
+            AppRelativeCurrentExecutionFilePath is the portion of the request that Routing acts on.
+        </p>
+        <p><strong>AppRelativeCurrentExecutionFilePath</strong>: {3}</p>
     </div>
-    <div style=""float: left; margin-left: 10px;"">
-        <table border=""1"" cellpadding=""3"" cellspacing=""0"" width=""300"">
-            <caption style=""font-weight: bold;"">Data Tokens</caption>
-            <tr class=""header""><th>Key</th><th>Value</th></tr>
-            {4}
-        </table>
-    </div>
-    <hr style=""clear: both;"" />
-    <table border=""1"" cellpadding=""3"" cellspacing=""0"">
-        <caption style=""font-weight: bold;"">All Routes</caption>
-        <tr class=""header"">
-            <th>Matches Current Request</th>
-            <th>Url</th>
-            <th>Defaults</th>
-            <th>Constraints</th>
-            <th>DataTokens</th>
-        </tr>
-        {2}
-    </table>
-    <hr />
-    <h3>Current Request Info</h3>
-    <p>
-        AppRelativeCurrentExecutionFilePath is the portion of the request that Routing acts on.
-    </p>
-    <p><strong>AppRelativeCurrentExecutionFilePath</strong>: {3}</p>
-</div>
-</body>
-</html>";
+</div>";
             string routeDataRows = string.Empty;
 
             RouteData routeData = requestContext.RouteData;

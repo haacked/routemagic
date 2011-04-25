@@ -14,7 +14,7 @@ namespace RouteTesterDemoWeb {
         }
 
         protected void Application_Start(object sender, EventArgs e) {
-            RouteTable.Routes.RouteExistingFiles = true;
+            RouteTable.Routes.RouteExistingFiles = false;
             RegisterRoutes(RouteTable.Routes);
         }
     }
