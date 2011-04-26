@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Routing;
+using System.Collections.Generic;
 
 namespace RouteDebug {
     public class DebugHttpHandler : IHttpHandler {
@@ -100,9 +101,9 @@ namespace RouteDebug {
                     Route route = routeBase as Route;
                     if (route != null) {
                         url = route.Url;
-                        defaults = FormatRouteValueDictionary(route.Defaults);
-                        constraints = FormatRouteValueDictionary(route.Constraints);
-                        dataTokens = FormatRouteValueDictionary(route.DataTokens);
+                        defaults = FormatDictionary(route.Defaults);
+                        constraints = FormatDictionary(route.Constraints);
+                        dataTokens = FormatDictionary(route.DataTokens);
                     }
 
                     routes += string.Format(@"<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>"
@@ -145,16 +146,44 @@ namespace RouteDebug {
                 , generatedUrlInfo));
         }
 
-        private static string FormatRouteValueDictionary(RouteValueDictionary values) {
-            if (values == null || values.Count == 0)
+        private static string FormatDictionary(IDictionary<string, object> values) {
+            if (values == null)
                 return "(null)";
 
+            if (values.Count == 0) {
+                return "(empty)";
+            }
+
             string display = string.Empty;
-            foreach (string key in values.Keys)
-                display += string.Format("{0} = {1}, ", key, values[key]);
+            foreach (string key in values.Keys) {
+                display += string.Format("{0} = {1}, ", key, FormatObject(values[key]));
+            }
             if (display.EndsWith(", "))
                 display = display.Substring(0, display.Length - 2);
             return display;
+        }
+
+        private static string FormatObject(object value) {
+            if (value == null) {
+                return "(null)";
+            }
+
+            var values = value as object[];
+            string valueText = string.Empty;
+            if (values != null) {
+                return string.Join(", ", values);
+            }
+
+            var dictionaryValues = value as IDictionary<string, object>;
+            if (dictionaryValues != null) {
+                return FormatDictionary(dictionaryValues);
+            }
+
+            if (value.GetType().Name == "UrlParameter") {
+                return "UrlParameter.Optional";
+            }
+
+            return value.ToString();
         }
 
         private static string BoolStyle(bool boolean) {
