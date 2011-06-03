@@ -1,4 +1,6 @@
-﻿using PowerAssert;
+﻿using System.Web.Routing;
+using Moq;
+using PowerAssert;
 using RouteMagic.HttpHandlers;
 using Xunit;
 
@@ -18,6 +20,18 @@ namespace UnitTests.HttpHandlers {
             PAssert.IsTrue(() => handler.TargetUrl == "~/foo");
             PAssert.IsTrue(() => handler.Permanent);
             PAssert.IsTrue(() => handler.IsReusable == false);
+        }
+
+        [Fact]
+        public void GetHttpHandler_ReturnsItself() {
+            // Arrange
+            var handler = new RedirectHttpHandler(targetUrl: "~/foo", permanent: true, isReusable: false);
+
+            // Act
+            var httpHandler = handler.GetHttpHandler(new Mock<RequestContext>().Object);
+
+            // Assert
+            PAssert.IsTrue(() => handler == httpHandler);
         }
     }
 }

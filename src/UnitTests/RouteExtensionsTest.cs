@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.IO;
+using System.Web;
 using System.Web.Routing;
 using Moq;
 using PowerAssert;
@@ -46,15 +48,54 @@ namespace UnitTests {
             var httpHandler = new Mock<IHttpHandler>().Object;
             var routes = new RouteCollection();
             bool isSet = false;
+            var httpRequest = new HttpRequest("foo", "http://foo.com/", "");
+            var httpResponse = new HttpResponse(new Mock<TextWriter>().Object);
+            var httpContext = new HttpContext(httpRequest, httpResponse);
+            var requestContext = new RequestContext(new HttpContextWrapper(httpContext), new RouteData());
 
             // Act
             var route = routes.MapDelegate("route-name", "url", c => isSet = true);
-            route.RouteHandler.GetHttpHandler(null).ProcessRequest(null);
+            route.RouteHandler.GetHttpHandler(requestContext).ProcessRequest(httpContext);
 
             // Assert
             PAssert.IsTrue(() => route.GetRouteName() == "route-name");
-            PAssert.IsTrue(() => route.RouteHandler.GetHttpHandler(null).GetType() == typeof(DelegateHttpHandler));
+            PAssert.IsTrue(() => route.RouteHandler.GetHttpHandler(requestContext).GetType() == typeof(DelegateHttpHandler));
             PAssert.IsTrue(() => isSet == true);
         }
+
+        [Fact]
+        public void GetRouteName_WithNullRouteData_ReturnsNull() {
+            // Arrange
+            var routeData = (RouteData)null;
+
+            // Act
+            var result = routeData.GetRouteName();
+
+            // Assert
+            PAssert.IsTrue(() => result == null);
+        }
+
+        [Fact]
+        public void GetRouteName_WithNullRoute_ReturnsNull() {
+            // Arrange
+            var route = (Route)null;
+
+            // Act
+            var result = route.GetRouteName();
+
+            // Assert
+            PAssert.IsTrue(() => result == null);
+        }
+
+        [Fact]
+        public void SetRouteName_WithNullRoute_ThrowsArgumentNullException() {
+            // Arrange
+            var route = (Route)null;
+
+            // Act, Assert
+            var exception = Assert.Throws<ArgumentNullException>(() => route.SetRouteName("whatever"));
+            PAssert.IsTrue(() => exception.ParamName == "route");
+        }
+
     }
 }

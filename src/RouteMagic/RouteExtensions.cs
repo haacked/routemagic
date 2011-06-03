@@ -43,8 +43,8 @@ namespace RouteMagic {
             return route;
         }
 
-        public static Route MapDelegate(this RouteCollection routes, string name, string url, Action<HttpContext> handler) {
-            return routes.MapHttpHandler(name, url, new DelegateHttpHandler(handler, false));
+        public static Route MapDelegate(this RouteCollection routes, string name, string url, Action<RequestContext> handler) {
+            return routes.MapHttpHandler(name, url, null, null, requestContext => new DelegateHttpHandler(handler, requestContext.RouteData, false));
         }
 
         public static string GetRouteName(this Route route) {

@@ -21,7 +21,7 @@ namespace RouteMagicDemo.Web {
             routes.Redirect(r => r.MapRoute("legacy2", "foobar/baz")).To(targetRoute, new { id = "123", action = "index" });
 
             // Map Delegate
-            routes.MapDelegate("map-delegate", "this-is-a-test", c => c.Response.Write("Yeah, it's a test"));
+            routes.MapDelegate("map-delegate", "this-is-a-test", rc => rc.HttpContext.Response.Write("Yeah, it's a test"));
 
             // Map HTTP Handlers
             routes.MapHttpHandler<HelloWorldHttpHandler>("hello-world", "handlers/helloworld");

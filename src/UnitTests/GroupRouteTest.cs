@@ -152,5 +152,29 @@ namespace UnitTests {
             PAssert.IsTrue(() => virtualPath != null);
             PAssert.IsTrue(() => virtualPath.VirtualPath == "uno/dos/three");
         }
+
+        [Fact]
+        public void SetRouteName_WithNullRouteValues_ReturnsNull() {
+            // Arrange
+            var routeValues = (RouteValueDictionary)null;
+
+            // Act
+            var result = routeValues.SetRouteName("whatever");
+
+            // Assert
+            PAssert.IsTrue(() => result == null);
+        }
+
+        [Fact]
+        public void GetRouteName_WithNullRouteValues_ReturnsNull() {
+            // Arrange
+            var routeValues = (RouteValueDictionary)null;
+
+            // Act
+            var result = routeValues.GetRouteName();
+
+            // Assert
+            PAssert.IsTrue(() => result == null);
+        }
     }
 }

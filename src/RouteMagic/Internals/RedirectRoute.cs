@@ -91,7 +91,7 @@ namespace RouteMagic.Internals {
                 targetUrl = "~/" + vpd.VirtualPath;
                 return new RedirectHttpHandler(targetUrl, Permanent, isReusable: false);
             }
-            return new DelegateHttpHandler(httpContext => httpContext.Response.StatusCode = 404, false);
+            return new DelegateHttpHandler(rc => rc.HttpContext.Response.StatusCode = 404, requestContext.RouteData, false);
         }
 
     }
