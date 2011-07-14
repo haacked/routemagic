@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <description>$description$</description>
+    <summary>$description$</summary>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>routing asp.net aspnetmvc</tags>
     <language>en-US</language>

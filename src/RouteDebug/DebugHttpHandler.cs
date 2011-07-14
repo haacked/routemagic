@@ -1,6 +1,6 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Routing;
-using System.Collections.Generic;
 
 namespace RouteDebug {
     public class DebugHttpHandler : IHttpHandler {
@@ -15,7 +15,9 @@ namespace RouteDebug {
             if (context.Request.QueryString.Count > 0) {
                 var rvalues = new RouteValueDictionary();
                 foreach (string key in context.Request.QueryString.Keys) {
-                    rvalues.Add(key, context.Request.QueryString[key]);
+                    if (key != null) {
+                        rvalues.Add(key, context.Request.QueryString[key]);
+                    }
                 }
 
                 var vpd = RouteTable.Routes.GetVirtualPath(requestContext, rvalues);
