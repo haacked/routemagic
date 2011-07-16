@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Web;
 using System.Web.Routing;
 
@@ -100,7 +101,8 @@ namespace RouteDebug {
                     string constraints = "n/a";
                     string dataTokens = "n/a";
 
-                    Route route = routeBase as Route;
+                    Route route = CastRoute(routeBase);
+
                     if (route != null) {
                         url = route.Url;
                         defaults = FormatDictionary(route.Defaults);
@@ -146,6 +148,20 @@ namespace RouteDebug {
                 , context.Request.AppRelativeCurrentExecutionFilePath
                 , dataTokensRows
                 , generatedUrlInfo));
+        }
+
+        private Route CastRoute(RouteBase routeBase) {
+            var route = routeBase as Route;
+            if (route == null) {
+                // cheat!
+                // TODO: Create an interface for self reporting routes.
+                var type = routeBase.GetType();
+                var property = type.GetProperty("__DebugRoute", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (property != null) {
+                    route = property.GetValue(routeBase, null) as Route;
+                }
+            }
+            return route;
         }
 
         private static string FormatDictionary(IDictionary<string, object> values) {

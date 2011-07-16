@@ -12,12 +12,13 @@ namespace RouteMagic.Internals {
             if (route == null) {
                 throw new ArgumentNullException("route");
             }
-            OriginalRoute = route;
+            __DebugRoute = route;
             AppendTrailingSlash = appendTrailingSlash;
             RequireLowerCase = requireLowerCase;
         }
 
-        public RouteBase OriginalRoute {
+        // This is so the RouteDebugger reports on this correctly.
+        internal RouteBase __DebugRoute {
             get;
             private set;
         }
@@ -33,7 +34,7 @@ namespace RouteMagic.Internals {
         }
 
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values) {
-            var vpd = OriginalRoute.GetVirtualPath(requestContext, values);
+            var vpd = __DebugRoute.GetVirtualPath(requestContext, values);
             if (vpd != null) {
                 var virtualPath = vpd.VirtualPath;
                 if (RequireLowerCase) {
@@ -57,7 +58,7 @@ namespace RouteMagic.Internals {
         }
 
         public override RouteData GetRouteData(HttpContextBase httpContext) {
-            return OriginalRoute.GetRouteData(httpContext);
+            return __DebugRoute.GetRouteData(httpContext);
         }
     }
 }

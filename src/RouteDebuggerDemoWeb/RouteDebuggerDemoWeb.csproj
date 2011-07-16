@@ -90,6 +90,10 @@
       <Project>{09548C4E-F0C1-428A-BC3A-BFBB9328D7C7}</Project>
       <Name>RouteDebugger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RouteMagic.Mvc\RouteMagic.Mvc.csproj">
+      <Project>{D9321DA3-F3AC-4567-8452-B1B5D5633045}</Project>
+      <Name>RouteMagic.Mvc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
