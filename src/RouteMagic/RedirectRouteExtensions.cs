@@ -19,7 +19,7 @@ namespace RouteMagic {
             var legacyRoute = routeMapping(routeCollection);
 
             var redirectRoute = new RedirectRoute(legacyRoute, null, permanent, null);
-            routes.Add(redirectRoute);
+            routes.Add(new NormalizeRoute(redirectRoute));
             return redirectRoute;
         }
     }

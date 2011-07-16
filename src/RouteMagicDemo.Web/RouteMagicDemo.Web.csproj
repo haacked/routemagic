@@ -109,7 +109,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63582</DevelopmentServerPort>
-          <DevelopmentServerVPath>/Foobar</DevelopmentServerVPath>
+          <DevelopmentServerVPath>/foobar</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

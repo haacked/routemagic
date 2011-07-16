@@ -54,6 +54,7 @@
     <Compile Include="HttpHandlers\RedirectHttpHandler.cs" />
     <Compile Include="Internals\ConfigChangeNotifier.cs" />
     <Compile Include="Internals\IVirtualPathResolver.cs" />
+    <Compile Include="Internals\NormalizeRoute.cs" />
     <Compile Include="Internals\RedirectRoute.cs" />
     <Compile Include="Internals\StringExtensions.cs" />
     <Compile Include="Internals\VirtualPathResolver.cs" />

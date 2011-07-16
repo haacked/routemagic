@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Routing;
 using RouteMagic.HttpHandlers;
+using RouteMagic.Internals;
 using RouteMagic.RouteHandlers;
 
 namespace RouteMagic {
@@ -18,7 +19,7 @@ namespace RouteMagic {
             var route = new Route(url, new HttpHandlerRouteHandler<THandler>(handlerFactory));
             route.Defaults = new RouteValueDictionary(defaults);
             route.Constraints = new RouteValueDictionary(constraints);
-            routes.Add(name, route);
+            routes.Add(name, new NormalizeRoute(route));
             route.SetRouteName(name);
             return route;
         }
@@ -31,14 +32,14 @@ namespace RouteMagic {
             var route = new Route(url, new HttpHandlerRouteHandler(httpHandler));
             route.Defaults = new RouteValueDictionary(defaults);
             route.Constraints = new RouteValueDictionary(constraints);
-            routes.Add(name, route);
+            routes.Add(name, new NormalizeRoute(route));
             route.SetRouteName(name);
             return route;
         }
 
         public static Route Map(this RouteCollection routes, string name, string url, IRouteHandler routeHandler) {
             var route = new Route(url, routeHandler);
-            routes.Add(name, route);
+            routes.Add(name, new NormalizeRoute(route));
             route.SetRouteName(name);
             return route;
         }

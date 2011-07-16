@@ -3,11 +3,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using RouteMagic.RouteHandlers;
+using RouteMagic.Internals;
 
 namespace RouteMagic {
     public static class MvcRouteExtenstions {
-        
+
         // The Map methods map to the MvcRouteHandler
 
         public static Route Map(this RouteCollection routes, string name, string url) {
@@ -25,6 +25,10 @@ namespace RouteMagic {
         public static Route Map(this RouteCollection routes, string name, string url, object defaults, object constraints, string[] namespaces) {
             var route = routes.MapRoute(name, url, defaults, constraints, namespaces);
             route.SetRouteName(name);
+            var normalized = new NormalizeRoute(route);
+            routes.Remove(route);
+            routes.Add(name, normalized);
+
             return route;
         }
 

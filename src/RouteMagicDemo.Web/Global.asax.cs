@@ -17,8 +17,8 @@ namespace RouteMagicDemo.Web {
 
             // Redirect From Old Route to New route
             var targetRoute = routes.Map("target", "yo/{id}/{action}", new { controller = "Home" });
-            routes.Redirect(r => r.MapRoute("legacy", "foobar/{id}/baz/{action}")).To(targetRoute, new { id = "123", action = "index" });
-            routes.Redirect(r => r.MapRoute("legacy2", "foobar/baz")).To(targetRoute, new { id = "123", action = "index" });
+            routes.Redirect(r => r.MapRoute("legacy", "foo/{id}/baz/{action}")).To(targetRoute, new { id = "123", action = "index" });
+            routes.Redirect(r => r.MapRoute("legacy2", "foo/baz")).To(targetRoute, new { id = "123", action = "index" });
 
             // Map Delegate
             routes.MapDelegate("map-delegate", "this-is-a-test", rc => rc.HttpContext.Response.Write("Yeah, it's a test"));
@@ -38,7 +38,7 @@ namespace RouteMagicDemo.Web {
             mvcRoutes.Map("foo2", "foo2/{controller}", new { action = "index" });
             routes.Add("group2", new GroupRoute("~/group2sec", mvcRoutes));
 
-            var defaultRoute = routes.MapRoute(
+            var defaultRoute = routes.Map(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
