@@ -11,5 +11,8 @@
     <language>en-US</language>
     <licenseUrl>http://routemagic.codeplex.com/license</licenseUrl>
     <projectUrl>http://routemagic.codeplex.com</projectUrl>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web" targetFramework="net40" />
+    </frameworkAssemblies>
   </metadata>
 </package>
