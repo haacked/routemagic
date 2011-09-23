@@ -22,6 +22,7 @@ namespace RouteMagicDemo.Web {
 
             // Map Delegate
             routes.MapDelegate("map-delegate", "this-is-a-test", rc => rc.HttpContext.Response.Write("Yeah, it's a test"));
+            routes.MapDelegate("map-delegate-incoming-only", "this-is-a-test", new { whatever = new IncomingOnlyRouteConstraint() }, rc => rc.HttpContext.Response.Write("Yeah, it's a test"));
 
             // Map HTTP Handlers
             routes.MapHttpHandler<HelloWorldHttpHandler>("hello-world", "handlers/helloworld");

@@ -40,4 +40,10 @@
         <li><code>@@Url.RouteUrl("Default", new {controller = "<strong>Home</strong>", action = "<strong>List</strong>", extra = "blah"})</code> results in: <strong>@Url.RouteUrl("Default", new {controller = "Home", action = "List", extra = "blah"})</strong></li>
     </ul>
 
+    <h3>IncomingOnlyRouteConstraint Sample</h3>
+    <ul>
+        <li>This should render a url: @Url.RouteUrl("map-delegate")</li>
+        <li>This should NOT render a url:  @Url.RouteUrl("map-delegate-incoming-only")</li>
+    </ul>
+
 </div>

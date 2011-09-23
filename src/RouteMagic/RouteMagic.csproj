@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="HttpHandlers\DelegateHttpHandler.cs" />
     <Compile Include="HttpHandlers\RedirectHttpHandler.cs" />
+    <Compile Include="IncomingOnlyRouteConstraint.cs" />
     <Compile Include="Internals\ConfigChangeNotifier.cs" />
     <Compile Include="Internals\IVirtualPathResolver.cs" />
     <Compile Include="Internals\NormalizeRoute.cs" />

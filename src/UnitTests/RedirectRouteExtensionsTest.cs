@@ -35,7 +35,7 @@ namespace UnitTests {
 
             // Assert
             PAssert.IsTrue(() => routes.Count == 1);
-            PAssert.IsTrue(() => routes[0] is RedirectRoute);
+            PAssert.IsTrue(() => routes[0] is NormalizeRoute);
         }
 
         [Fact]
