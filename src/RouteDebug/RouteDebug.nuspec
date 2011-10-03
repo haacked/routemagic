@@ -7,6 +7,9 @@
     <authors>$author$</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
+    <releaseNotes>
+        * 2.1.1 No longer appends route info to the end of requests for files on disk.
+    </releaseNotes>
     <summary>$description$</summary>
     <language>en-US</language>
     <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
