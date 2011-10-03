@@ -1,23 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Routing;
 
 namespace RouteDebug {
     public class DebugHttpHandler : IHttpHandler {
-        public bool IsReusable {
-            get { return true; }
+        VirtualPathProvider _virtualPathProvider;
+
+        public DebugHttpHandler() : this(null) { }
+
+        public DebugHttpHandler(VirtualPathProvider virtualPathProvider) {
+            _virtualPathProvider = virtualPathProvider ?? HostingEnvironment.VirtualPathProvider;
         }
 
         public void ProcessRequest(HttpContext context) {
-            string generatedUrlInfo = string.Empty;
-            var requestContext = HttpContext.Current.Request.RequestContext;
+            var request = context.Request;
 
-            if (context.Request.QueryString.Count > 0) {
+            if (!IsRoutedRequest(request)) {
+                return;
+            }
+
+            string generatedUrlInfo = string.Empty;
+            var requestContext = request.RequestContext;
+
+            if (request.QueryString.Count > 0) {
                 var rvalues = new RouteValueDictionary();
-                foreach (string key in context.Request.QueryString.Keys) {
+                foreach (string key in request.QueryString.Keys) {
                     if (key != null) {
-                        rvalues.Add(key, context.Request.QueryString[key]);
+                        rvalues.Add(key, request.QueryString[key]);
                     }
                 }
 
@@ -145,7 +156,7 @@ namespace RouteDebug {
                 , routeDataRows
                 , matchedRouteUrl
                 , routes
-                , context.Request.AppRelativeCurrentExecutionFilePath
+                , request.AppRelativeCurrentExecutionFilePath
                 , dataTokensRows
                 , generatedUrlInfo));
         }
@@ -207,6 +218,18 @@ namespace RouteDebug {
         private static string BoolStyle(bool boolean) {
             if (boolean) return " style=\"color: #0c0\"";
             return " style=\"color: #c00\"";
+        }
+
+        private bool IsRoutedRequest(HttpRequest request) {
+            string path = request.AppRelativeCurrentExecutionFilePath;
+            if (path != "~/" && (_virtualPathProvider.FileExists(path) || _virtualPathProvider.DirectoryExists(path))) {
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsReusable {
+            get { return true; }
         }
     }
 }
