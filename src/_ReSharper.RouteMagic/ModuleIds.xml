@@ -1,7 +1,0 @@
-<Modules>
-  <Module PersistentId="DC4C0E90-AD76-4273-B05A-73033CD5145E" ModuleId="UnitTests" />
-  <Module PersistentId="FD31E05E-9916-4219-99C8-8FCC46CAEB54" ModuleId="RouteMagic" />
-  <Module PersistentId="DC6527E3-0946-4C3F-AE16-A41A1890EE3F" ModuleId="RouteMagicDemo.Web" />
-  <Module PersistentId="40F914CD-F707-4A4D-AF7B-75E8928055BB" ModuleId="RouteDebuggerDemoWeb" />
-  <Module PersistentId="D9321DA3-F3AC-4567-8452-B1B5D5633045" ModuleId="RouteMagic.Mvc" />
-</Modules>
