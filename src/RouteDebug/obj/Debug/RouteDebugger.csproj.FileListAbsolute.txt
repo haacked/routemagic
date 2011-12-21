@@ -1,6 +1,0 @@
-C:\dev\git\RouteMagic\src\RouteDebug\bin\Debug\RouteDebug.nuspec
-C:\dev\git\RouteMagic\src\RouteDebug\bin\Debug\RouteDebugger.dll
-C:\dev\git\RouteMagic\src\RouteDebug\bin\Debug\RouteDebugger.pdb
-C:\dev\git\RouteMagic\src\RouteDebug\obj\Debug\ResolveAssemblyReference.cache
-C:\dev\git\RouteMagic\src\RouteDebug\obj\Debug\RouteDebugger.dll
-C:\dev\git\RouteMagic\src\RouteDebug\obj\Debug\RouteDebugger.pdb
