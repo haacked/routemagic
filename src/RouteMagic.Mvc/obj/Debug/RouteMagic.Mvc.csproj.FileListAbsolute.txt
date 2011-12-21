@@ -1,0 +1,9 @@
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\bin\Debug\routemagic.nuspec
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\bin\Debug\routemagic.mvc.nuspec
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\bin\Debug\RouteMagic.Mvc.dll
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\bin\Debug\RouteMagic.Mvc.pdb
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\bin\Debug\RouteMagic.dll
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\bin\Debug\RouteMagic.pdb
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\obj\Debug\ResolveAssemblyReference.cache
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\obj\Debug\RouteMagic.Mvc.dll
+C:\dev\git\RouteMagic\src\RouteMagic.Mvc\obj\Debug\RouteMagic.Mvc.pdb

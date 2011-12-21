@@ -8,10 +8,13 @@ using RouteMagic;
 using RouteMagic.HttpHandlers;
 using Xunit;
 
-namespace UnitTests {
-    public class RouteExtensionsTest {
+namespace UnitTests
+{
+    public class RouteExtensionsTest
+    {
         [Fact]
-        public void MapHttpHandlerSetsRouteNameAndHttpHandlerRouteHandler() {
+        public void MapHttpHandlerSetsRouteNameAndHttpHandlerRouteHandler()
+        {
             // Arrange
             var obj = new RouteValueDictionary { { "foo", "bar" } };
             var routeValues = new RouteValueDictionary(obj);
@@ -29,7 +32,8 @@ namespace UnitTests {
         }
 
         [Fact]
-        public void MapHttpHandlerWithFuncSetsRouteNameAndHttpHandlerRouteHandler() {
+        public void MapHttpHandlerWithFuncSetsRouteNameAndHttpHandlerRouteHandler()
+        {
             // Arrange
             var httpHandler = new Mock<IHttpHandler>().Object;
             var routes = new RouteCollection();
@@ -43,7 +47,8 @@ namespace UnitTests {
         }
 
         [Fact]
-        public void MapDelegateSetsRouteNameAndHttpHandlerRouteHandler() {
+        public void MapDelegateSetsRouteNameAndHttpHandlerRouteHandler()
+        {
             // Arrange
             var httpHandler = new Mock<IHttpHandler>().Object;
             var routes = new RouteCollection();
@@ -64,7 +69,44 @@ namespace UnitTests {
         }
 
         [Fact]
-        public void GetRouteName_WithNullRouteData_ReturnsNull() {
+        public void MapDelegateWithStaticUrlDoesNotMatchForUrlGeneration()
+        {
+            // Arrange
+            var routes = new RouteCollection();
+            var httpRequest = new HttpRequest("foo", "http://foo.com/", "");
+            var httpResponse = new HttpResponse(new Mock<TextWriter>().Object);
+            var httpContext = new HttpContext(httpRequest, httpResponse);
+            var requestContext = new RequestContext(new HttpContextWrapper(httpContext), new RouteData());
+
+            // Act
+            routes.MapDelegate("route-name", "url", c => { });
+            var vp = routes[0].GetVirtualPath(requestContext, new RouteValueDictionary());
+
+            // Assert
+            PAssert.IsTrue(() => vp == null);
+        }
+
+        [Fact]
+        public void MapDelegateWithParametersInUrlMatchesForUrlGeneration()
+        {
+            // Arrange
+            var routes = new RouteCollection();
+            var httpRequest = new HttpRequest("foo", "http://foo.com/", "");
+            var httpResponse = new HttpResponse(new Mock<TextWriter>().Object);
+            var httpContext = new HttpContext(httpRequest, httpResponse);
+            var requestContext = new RequestContext(new HttpContextWrapper(httpContext), new RouteData());
+
+            // Act
+            routes.MapDelegate("route-name", "{url}", c => { });
+            var vp = routes[0].GetVirtualPath(requestContext, new RouteValueDictionary { { "url", "blah" } });
+
+            // Assert
+            PAssert.IsTrue(() => vp != null);
+        }
+
+        [Fact]
+        public void GetRouteName_WithNullRouteData_ReturnsNull()
+        {
             // Arrange
             var routeData = (RouteData)null;
 
@@ -76,7 +118,8 @@ namespace UnitTests {
         }
 
         [Fact]
-        public void GetRouteName_WithNullRoute_ReturnsNull() {
+        public void GetRouteName_WithNullRoute_ReturnsNull()
+        {
             // Arrange
             var route = (Route)null;
 
@@ -88,7 +131,8 @@ namespace UnitTests {
         }
 
         [Fact]
-        public void SetRouteName_WithNullRoute_ThrowsArgumentNullException() {
+        public void SetRouteName_WithNullRoute_ThrowsArgumentNullException()
+        {
             // Arrange
             var route = (Route)null;
 
