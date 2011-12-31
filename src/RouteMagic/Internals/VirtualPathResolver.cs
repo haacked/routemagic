@@ -1,13 +1,17 @@
 ﻿using System.Web;
 
-namespace RouteMagic.Internals {
-    public class VirtualPathResolver : IVirtualPathResolver {
+namespace RouteMagic.Internals
+{
+    public class VirtualPathResolver : IVirtualPathResolver
+    {
         public static readonly VirtualPathResolver Instance = new VirtualPathResolver();
 
-        private VirtualPathResolver() {
+        private VirtualPathResolver()
+        {
         }
 
-        public string ToAbsolute(string virtualPath) {
+        public string ToAbsolute(string virtualPath)
+        {
             return VirtualPathUtility.ToAbsolute(virtualPath);
         }
     }

@@ -23,6 +23,7 @@ namespace RouteMagic.Internals
         }
 
         // This is so the RouteDebugger reports on this correctly.
+        // This name was chosen intentionally! Don't change it. :)
         internal RouteBase __DebugRoute
         {
             get;

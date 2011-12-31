@@ -54,7 +54,7 @@ namespace RouteDebug
                 }
             }
 
-            string htmlFormat = @"<html>
+            const string htmlFormat = @"<html>
 <div id=""haackroutedebugger"" style=""background-color: #fff;"">
     <style>
         #haackroutedebugger, #haackroutedebugger td, #haackroutedebugger th {{background-color: #fff; font-family: verdana, helvetica, san-serif; font-size: small;}}
@@ -160,7 +160,7 @@ namespace RouteDebug
                     dataTokensRows += string.Format("\t<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, routeData.DataTokens[key]);
                 }
 
-                Route matchedRoute = matchedRouteBase as Route;
+                var matchedRoute = matchedRouteBase as Route;
 
                 if (matchedRoute != null)
                     matchedRouteUrl = matchedRoute.Url;

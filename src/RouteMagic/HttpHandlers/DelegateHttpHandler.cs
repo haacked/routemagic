@@ -2,16 +2,21 @@
 using System.Web;
 using System.Web.Routing;
 
-namespace RouteMagic.HttpHandlers {
-    public class DelegateHttpHandler : IHttpHandler {
-        private Action<RequestContext> _action;
-        private RouteData _routeData;
+namespace RouteMagic.HttpHandlers
+{
+    public class DelegateHttpHandler : IHttpHandler
+    {
+        readonly Action<RequestContext> _action;
+        readonly RouteData _routeData;
 
-        public DelegateHttpHandler(Action<RequestContext> action, RouteData routeData, bool isReusable) {
-            if (action == null) {
+        public DelegateHttpHandler(Action<RequestContext> action, RouteData routeData, bool isReusable)
+        {
+            if (action == null)
+            {
                 throw new ArgumentNullException("action");
             }
-            if (routeData == null) {
+            if (routeData == null)
+            {
                 throw new ArgumentNullException("routeData");
             }
 
@@ -20,12 +25,14 @@ namespace RouteMagic.HttpHandlers {
             _routeData = routeData;
         }
 
-        public bool IsReusable {
+        public bool IsReusable
+        {
             get;
             private set;
         }
 
-        public void ProcessRequest(HttpContext context) {
+        public void ProcessRequest(HttpContext context)
+        {
             _action(new RequestContext(new HttpContextWrapper(context), _routeData));
         }
     }

@@ -11,19 +11,21 @@ namespace RouteMagic
     {
         public static Route MapHttpHandler<THandler>(this RouteCollection routes, string name, string url) where THandler : IHttpHandler, new()
         {
-            return routes.MapHttpHandler<THandler>(name, url, defaults: null, constraints: null, handlerFactory: r => new THandler());
+            return routes.MapHttpHandler(name, url, null, null, r => new THandler());
         }
 
         public static Route MapHttpHandler<THandler>(this RouteCollection routes, string name, string url, Func<RequestContext, THandler> handlerFactory) where THandler : IHttpHandler
         {
-            return routes.MapHttpHandler<THandler>(name, url, defaults: null, constraints: null, handlerFactory: handlerFactory);
+            return routes.MapHttpHandler(name, url, null, null, handlerFactory);
         }
 
         public static Route MapHttpHandler<THandler>(this RouteCollection routes, string name, string url, object defaults, object constraints, Func<RequestContext, THandler> handlerFactory) where THandler : IHttpHandler
         {
-            var route = new Route(url, new HttpHandlerRouteHandler<THandler>(handlerFactory));
-            route.Defaults = new RouteValueDictionary(defaults);
-            route.Constraints = new RouteValueDictionary(constraints);
+            var route = new Route(url, new HttpHandlerRouteHandler<THandler>(handlerFactory))
+                        {
+                            Defaults = new RouteValueDictionary(defaults),
+                            Constraints = new RouteValueDictionary(constraints)
+                        };
             routes.Add(name, new NormalizeRoute(route));
             route.SetRouteName(name);
             return route;
@@ -36,9 +38,11 @@ namespace RouteMagic
 
         public static Route MapHttpHandler(this RouteCollection routes, IHttpHandler httpHandler, string name, string url, object defaults, object constraints)
         {
-            var route = new Route(url, new HttpHandlerRouteHandler(httpHandler));
-            route.Defaults = new RouteValueDictionary(defaults);
-            route.Constraints = new RouteValueDictionary(constraints);
+            var route = new Route(url, new HttpHandlerRouteHandler(httpHandler))
+                        {
+                            Defaults = new RouteValueDictionary(defaults),
+                            Constraints = new RouteValueDictionary(constraints)
+                        };
             routes.Add(name, new NormalizeRoute(route));
             route.SetRouteName(name);
             return route;

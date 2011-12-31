@@ -3,26 +3,33 @@ using System.Web;
 using System.Web.Routing;
 using RouteMagic.Internals;
 
-namespace RouteMagic {
-    public class GroupRoute : RouteBase {
-        private const string ApplicationRootPath = "~/";
-        private string _path = null;
-        private IVirtualPathResolver _virtualPathResolver;
+namespace RouteMagic
+{
+    public class GroupRoute : RouteBase
+    {
+        const string ApplicationRootPath = "~/";
+        readonly string _path;
+        readonly IVirtualPathResolver _virtualPathResolver;
 
         public GroupRoute(RouteCollection childRoutes)
-            : this(ApplicationRootPath, childRoutes, null) {
+            : this(ApplicationRootPath, childRoutes, null)
+        {
         }
 
         public GroupRoute(RouteCollection childRoutes, IVirtualPathResolver virtualPathResolver)
-            : this(ApplicationRootPath, childRoutes, virtualPathResolver) {
+            : this(ApplicationRootPath, childRoutes, virtualPathResolver)
+        {
         }
 
         public GroupRoute(string directoryPath, RouteCollection childRoutes)
-            : this(directoryPath, childRoutes, null) {
+            : this(directoryPath, childRoutes, null)
+        {
         }
 
-        public GroupRoute(string directoryPath, RouteCollection childRoutes, IVirtualPathResolver virtualPathResolver) {
-            if (!directoryPath.StartsWith("~/")) {
+        public GroupRoute(string directoryPath, RouteCollection childRoutes, IVirtualPathResolver virtualPathResolver)
+        {
+            if (!directoryPath.StartsWith("~/"))
+            {
                 throw new ArgumentException("Directory Path must start with '~/'", "directoryPath");
             }
             _virtualPathResolver = virtualPathResolver ?? VirtualPathResolver.Instance;
@@ -32,18 +39,22 @@ namespace RouteMagic {
 
         }
 
-        public string VirtualPath {
+        public string VirtualPath
+        {
             get;
             private set;
         }
 
-        public RouteCollection ChildRoutes {
+        public RouteCollection ChildRoutes
+        {
             get;
             private set;
         }
 
-        public override RouteData GetRouteData(HttpContextBase httpContext) {
-            if (!httpContext.Request.AppRelativeCurrentExecutionFilePath.StartsWith(VirtualPath, StringComparison.OrdinalIgnoreCase)) {
+        public override RouteData GetRouteData(HttpContextBase httpContext)
+        {
+            if (!httpContext.Request.AppRelativeCurrentExecutionFilePath.StartsWith(VirtualPath, StringComparison.OrdinalIgnoreCase))
+            {
                 return null;
             }
             // some trickery here to strip off DirectoryPath from the Request URL in httpContext if needed
@@ -52,11 +63,13 @@ namespace RouteMagic {
             return ChildRoutes.GetRouteData(childHttpContext ?? httpContext);
         }
 
-        public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values) {
+        public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
+        {
             string routeName = values.GetRouteName();
 
-            var virtualPath = ChildRoutes.GetVirtualPath(requestContext, routeName as string, values.WithoutRouteName());
-            if (virtualPath != null) {
+            var virtualPath = ChildRoutes.GetVirtualPath(requestContext, routeName, values.WithoutRouteName());
+            if (virtualPath != null)
+            {
                 string rewrittenVirtualPath = virtualPath.VirtualPath.WithoutApplicationPath(requestContext);
                 string directoryPath = VirtualPath.WithoutTildePrefix(); // remove tilde
                 rewrittenVirtualPath = rewrittenVirtualPath.Insert(0, directoryPath.WithoutTrailingSlash());
