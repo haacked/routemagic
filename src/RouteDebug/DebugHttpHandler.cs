@@ -1,43 +1,54 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Routing;
 
-namespace RouteDebug {
-    public class DebugHttpHandler : IHttpHandler {
-        VirtualPathProvider _virtualPathProvider;
+namespace RouteDebug
+{
+    public class DebugHttpHandler : IHttpHandler
+    {
+        readonly VirtualPathProvider _virtualPathProvider;
 
         public DebugHttpHandler() : this(null) { }
 
-        public DebugHttpHandler(VirtualPathProvider virtualPathProvider) {
+        public DebugHttpHandler(VirtualPathProvider virtualPathProvider)
+        {
             _virtualPathProvider = virtualPathProvider ?? HostingEnvironment.VirtualPathProvider;
         }
 
-        public void ProcessRequest(HttpContext context) {
+        public void ProcessRequest(HttpContext context)
+        {
             var request = context.Request;
 
-            if (!IsRoutedRequest(request)) {
+            if (!IsRoutedRequest(request) || !request.ContentType.Equals("text/html", StringComparison.OrdinalIgnoreCase))
+            {
                 return;
             }
 
             string generatedUrlInfo = string.Empty;
             var requestContext = request.RequestContext;
 
-            if (request.QueryString.Count > 0) {
+            if (request.QueryString.Count > 0)
+            {
                 var rvalues = new RouteValueDictionary();
-                foreach (string key in request.QueryString.Keys) {
-                    if (key != null) {
+                foreach (string key in request.QueryString.Keys)
+                {
+                    if (key != null)
+                    {
                         rvalues.Add(key, request.QueryString[key]);
                     }
                 }
 
                 var vpd = RouteTable.Routes.GetVirtualPath(requestContext, rvalues);
-                if (vpd != null) {
+                if (vpd != null)
+                {
                     generatedUrlInfo = "<p><label style=\"font-weight: bold; font-size: 1.1em;\">Generated URL</label>: ";
                     generatedUrlInfo += "<strong style=\"color: #00a;\">" + vpd.VirtualPath + "</strong>";
                     var vpdRoute = vpd.Route as Route;
-                    if (vpdRoute != null) {
+                    if (vpdRoute != null)
+                    {
                         generatedUrlInfo += " using the route \"" + vpdRoute.Url + "\"</p>";
                     }
                 }
@@ -103,8 +114,10 @@ namespace RouteDebug {
             RouteBase matchedRouteBase = routeData.Route;
 
             string routes = string.Empty;
-            using (RouteTable.Routes.GetReadLock()) {
-                foreach (RouteBase routeBase in RouteTable.Routes) {
+            using (RouteTable.Routes.GetReadLock())
+            {
+                foreach (RouteBase routeBase in RouteTable.Routes)
+                {
                     bool matchesCurrentRequest = (routeBase.GetRouteData(requestContext.HttpContext) != null);
                     string matchText = string.Format(@"<span{0}>{1}</span>", BoolStyle(matchesCurrentRequest), matchesCurrentRequest);
                     string url = "n/a";
@@ -114,7 +127,8 @@ namespace RouteDebug {
 
                     Route route = CastRoute(routeBase);
 
-                    if (route != null) {
+                    if (route != null)
+                    {
                         url = route.Url;
                         defaults = FormatDictionary(route.Defaults);
                         constraints = FormatDictionary(route.Constraints);
@@ -134,12 +148,15 @@ namespace RouteDebug {
 
             string dataTokensRows = "";
 
-            if (!(matchedRouteBase is DebugRoute)) {
-                foreach (string key in routeValues.Keys) {
+            if (!(matchedRouteBase is DebugRoute))
+            {
+                foreach (string key in routeValues.Keys)
+                {
                     routeDataRows += string.Format("\t<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, routeValues[key]);
                 }
 
-                foreach (string key in routeData.DataTokens.Keys) {
+                foreach (string key in routeData.DataTokens.Keys)
+                {
                     dataTokensRows += string.Format("\t<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, routeData.DataTokens[key]);
                 }
 
@@ -148,7 +165,8 @@ namespace RouteDebug {
                 if (matchedRoute != null)
                     matchedRouteUrl = matchedRoute.Url;
             }
-            else {
+            else
+            {
                 matchedRouteUrl = string.Format("<strong{0}>NO MATCH!</strong>", BoolStyle(false));
             }
 
@@ -161,30 +179,36 @@ namespace RouteDebug {
                 , generatedUrlInfo));
         }
 
-        private Route CastRoute(RouteBase routeBase) {
+        private Route CastRoute(RouteBase routeBase)
+        {
             var route = routeBase as Route;
-            if (route == null) {
+            if (route == null)
+            {
                 // cheat!
                 // TODO: Create an interface for self reporting routes.
                 var type = routeBase.GetType();
                 var property = type.GetProperty("__DebugRoute", BindingFlags.NonPublic | BindingFlags.Instance);
-                if (property != null) {
+                if (property != null)
+                {
                     route = property.GetValue(routeBase, null) as Route;
                 }
             }
             return route;
         }
 
-        private static string FormatDictionary(IDictionary<string, object> values) {
+        private static string FormatDictionary(IDictionary<string, object> values)
+        {
             if (values == null)
                 return "(null)";
 
-            if (values.Count == 0) {
+            if (values.Count == 0)
+            {
                 return "(empty)";
             }
 
             string display = string.Empty;
-            foreach (string key in values.Keys) {
+            foreach (string key in values.Keys)
+            {
                 display += string.Format("{0} = {1}, ", key, FormatObject(values[key]));
             }
             if (display.EndsWith(", "))
@@ -192,43 +216,51 @@ namespace RouteDebug {
             return display;
         }
 
-        private static string FormatObject(object value) {
-            if (value == null) {
+        private static string FormatObject(object value)
+        {
+            if (value == null)
+            {
                 return "(null)";
             }
 
             var values = value as object[];
-            string valueText = string.Empty;
-            if (values != null) {
+            if (values != null)
+            {
                 return string.Join(", ", values);
             }
 
             var dictionaryValues = value as IDictionary<string, object>;
-            if (dictionaryValues != null) {
+            if (dictionaryValues != null)
+            {
                 return FormatDictionary(dictionaryValues);
             }
 
-            if (value.GetType().Name == "UrlParameter") {
+            if (value.GetType().Name == "UrlParameter")
+            {
                 return "UrlParameter.Optional";
             }
 
             return value.ToString();
         }
 
-        private static string BoolStyle(bool boolean) {
+        private static string BoolStyle(bool boolean)
+        {
             if (boolean) return " style=\"color: #0c0\"";
             return " style=\"color: #c00\"";
         }
 
-        private bool IsRoutedRequest(HttpRequest request) {
+        private bool IsRoutedRequest(HttpRequest request)
+        {
             string path = request.AppRelativeCurrentExecutionFilePath;
-            if (path != "~/" && (_virtualPathProvider.FileExists(path) || _virtualPathProvider.DirectoryExists(path))) {
+            if (path != "~/" && (_virtualPathProvider.FileExists(path) || _virtualPathProvider.DirectoryExists(path)))
+            {
                 return false;
             }
             return true;
         }
 
-        public bool IsReusable {
+        public bool IsReusable
+        {
             get { return true; }
         }
     }
