@@ -22,7 +22,7 @@ namespace RouteDebug
         {
             var request = context.Request;
 
-            if (!IsRoutedRequest(request) || !request.ContentType.Equals("text/html", StringComparison.OrdinalIgnoreCase))
+            if (!IsRoutedRequest(request) || context.Response.ContentType == null || !context.Response.ContentType.Equals("text/html", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
@@ -109,14 +109,14 @@ namespace RouteDebug
 </div>";
             string routeDataRows = string.Empty;
 
-            RouteData routeData = requestContext.RouteData;
-            RouteValueDictionary routeValues = routeData.Values;
-            RouteBase matchedRouteBase = routeData.Route;
+            var routeData = requestContext.RouteData;
+            var routeValues = routeData.Values;
+            var matchedRouteBase = routeData.Route;
 
             string routes = string.Empty;
             using (RouteTable.Routes.GetReadLock())
             {
-                foreach (RouteBase routeBase in RouteTable.Routes)
+                foreach (var routeBase in RouteTable.Routes)
                 {
                     bool matchesCurrentRequest = (routeBase.GetRouteData(requestContext.HttpContext) != null);
                     string matchText = string.Format(@"<span{0}>{1}</span>", BoolStyle(matchesCurrentRequest), matchesCurrentRequest);
