@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using RouteMagic.Internals;
+using RouteMagic.Mvc;
 
 namespace RouteMagic
 {
@@ -36,6 +37,17 @@ namespace RouteMagic
             return route;
         }
 
+        public static Route Map(this RouteCollection routes, string name, string domain, string url)
+        {
+            return routes.Map(name, domain, url, null);
+        }
+
+        public static Route Map(this RouteCollection routes, string name, string domain, string url, object defaults)
+        {
+            var route = new MvcDomainRoute(domain, url, defaults);
+            return route;
+        }
+
         public static IHtmlString HandlerLink(this HtmlHelper htmlHelper, string linkText, string routeName)
         {
             return htmlHelper.HandlerLink(linkText, routeName, routeValues: null, htmlAttributes: null);
@@ -62,6 +74,26 @@ namespace RouteMagic
             var routeValueDictionary = new RouteValueDictionary(routeValues);
             routeValueDictionary.SetRouteName(routeName);
             return urlHelper.RouteUrl(routeName, routeValues);
+        }
+
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool requireAbsoluteUrl)
+        {
+            if (requireAbsoluteUrl)
+            {
+                HttpContextBase currentContext = new HttpContextWrapper(HttpContext.Current);
+                RouteData routeData = RouteTable.Routes.GetRouteData(currentContext);
+
+                routeData.Values["controller"] = controllerName;
+                routeData.Values["action"] = actionName;
+
+                DomainRoute domainRoute = routeData.Route as DomainRoute;
+                if (domainRoute != null)
+                {
+                    DomainData domainData = domainRoute.GetDomainData(new RequestContext(currentContext, routeData), routeData.Values);
+                    return htmlHelper.ActionLink(linkText, actionName, controllerName, domainData.Protocol, domainData.HostName, domainData.Fragment, routeData.Values, null);
+                }
+            }
+            return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
         }
     }
 }
