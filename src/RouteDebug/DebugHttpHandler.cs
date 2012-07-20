@@ -55,14 +55,14 @@ namespace RouteDebug
             }
 
             const string htmlFormat = @"<html>
-<div id=""haackroutedebugger"" style=""background-color: #fff;"">
+<div id=""haackroutedebugger"" style=""background-color: #fff; padding-bottom: 10px;"">
     <style>
         #haackroutedebugger, #haackroutedebugger td, #haackroutedebugger th {{background-color: #fff; font-family: verdana, helvetica, san-serif; font-size: small;}}
         #haackroutedebugger tr.header td, #haackroutedebugger tr.header th {{background-color: #ffc;}}
     </style>
     <hr style=""width: 100%; border: solid 1px #000; margin:0; padding:0;"" />
     <h1 style=""margin: 0; padding: 4px; border-bottom: solid 1px #bbb; padding-left: 10px; font-size: 1.2em; background-color: #ffc;"">Route Debugger</h1>
-    <div id=""main"" style=""margin-top:0; padding-top:0"">
+    <div id=""main"" style=""margin-top:0; padding: 0 10px;"">
         <p style=""font-size: .9em; padding-top:0"">
             Type in a url in the address bar to see which defined routes match it. 
             A {{*catchall}} route is added to the list of routes automatically in 
