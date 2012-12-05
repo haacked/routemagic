@@ -117,11 +117,9 @@ namespace RouteMagic.Internals
             if (OnRedirectAction != null) OnRedirectAction(requestContext, this);
 
             var requestRouteValues = requestContext.RouteData.Values;
-
-            var routeValues = AdditionalRouteValues.Merge(requestRouteValues);
-
-            var vpd = TargetRoute.GetVirtualPath(requestContext, routeValues);
-
+            
+            var mergedRouteValues = AdditionalRouteValues != null ? AdditionalRouteValues.Merge(requestRouteValues) : new RouteValueDictionary();
+            var vpd = TargetRoute.GetVirtualPath(requestContext, mergedRouteValues);
             if (vpd != null)
             {
                 string targetUrl = "~/" + vpd.VirtualPath;
