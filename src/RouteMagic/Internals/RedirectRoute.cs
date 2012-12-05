@@ -100,10 +100,10 @@ namespace RouteMagic.Internals
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
             var requestRouteValues = requestContext.RouteData.Values;
+            
+            var mergedRouteValues = AdditionalRouteValues != null ? AdditionalRouteValues.Merge(requestRouteValues) : new RouteValueDictionary();
 
-            var routeValues = AdditionalRouteValues.Merge(requestRouteValues);
-
-            var vpd = TargetRoute.GetVirtualPath(requestContext, routeValues);
+            var vpd = TargetRoute.GetVirtualPath(requestContext, mergedRouteValues);
             if (vpd != null)
             {
                 string targetUrl = "~/" + vpd.VirtualPath;
