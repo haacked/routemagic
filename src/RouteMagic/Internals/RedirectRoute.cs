@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Routing;
 using RouteMagic.HttpHandlers;
@@ -107,6 +108,15 @@ namespace RouteMagic.Internals
             if (vpd != null)
             {
                 string targetUrl = "~/" + vpd.VirtualPath;
+
+                //add query strings
+                var qsHelper = requestContext.HttpContext.Request.QueryString;
+                var queryString = String.Join("&", qsHelper.AllKeys.Select(i => i + "=" + qsHelper[i]));
+                if (!string.IsNullOrWhiteSpace(queryString))
+                {
+                    targetUrl += "?" + queryString;
+                }
+
                 return new RedirectHttpHandler(targetUrl, Permanent, isReusable: false);
             }
             return new DelegateHttpHandler(rc => rc.HttpContext.Response.StatusCode = 404, requestContext.RouteData, false);
