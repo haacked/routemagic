@@ -9,7 +9,11 @@ namespace RouteMagic
         // We always want to map the RedirectRoute *BEFORE* the legacy route that we're going to redirect.
         // Otherwise the redirect route will never match because the legacy route will supersede it. 
         // Hence the Func<RouteCollection, RouteBase>.
-        public static RedirectRoute Redirect(this RouteCollection routes, Func<RouteCollection, RouteBase> routeMapping, bool permanent = false)
+        public static RedirectRoute Redirect(
+            this RouteCollection routes, 
+            Func<RouteCollection, RouteBase> routeMapping, 
+            bool permanent = false,
+            Action<RequestContext, RedirectRoute> onRedirectAction = null)
         {
             if (routes == null)
             {
@@ -23,7 +27,7 @@ namespace RouteMagic
             var routeCollection = new RouteCollection();
             var legacyRoute = routeMapping(routeCollection);
 
-            var redirectRoute = new RedirectRoute(legacyRoute, null, permanent, null);
+            var redirectRoute = new RedirectRoute(legacyRoute, null, permanent, null, onRedirectAction);
             routes.Add(new NormalizeRoute(redirectRoute));
             return redirectRoute;
         }

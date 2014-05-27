@@ -10,17 +10,25 @@ namespace RouteMagic.Internals
     public class RedirectRoute : RouteBase, IRouteHandler
     {
         public RedirectRoute(RouteBase sourceRoute, RouteBase targetRoute, bool permanent)
-            : this(sourceRoute, targetRoute, permanent, null)
+            : this(sourceRoute, targetRoute, permanent, null, null)
         {
         }
 
-        public RedirectRoute(RouteBase sourceRoute, RouteBase targetRoute, bool permanent, RouteValueDictionary additionalRouteValues)
+        public RedirectRoute(
+            RouteBase sourceRoute, 
+            RouteBase targetRoute, 
+            bool permanent, 
+            RouteValueDictionary additionalRouteValues, 
+            Action<RequestContext, RedirectRoute> onRedirectAction = null)
         {
             SourceRoute = sourceRoute;
             TargetRoute = targetRoute;
             Permanent = permanent;
             AdditionalRouteValues = additionalRouteValues;
+            OnRedirectAction = onRedirectAction;
         }
+
+        public Action<RequestContext, RedirectRoute> OnRedirectAction { get; set; }
 
         public RouteBase SourceRoute
         {
@@ -100,11 +108,15 @@ namespace RouteMagic.Internals
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
+            //run the onredirection action. For example, this can be used to log that the redirection ocurred.
+            if (OnRedirectAction != null) OnRedirectAction(requestContext, this);
+
             var requestRouteValues = requestContext.RouteData.Values;
 
             var routeValues = AdditionalRouteValues.Merge(requestRouteValues);
 
             var vpd = TargetRoute.GetVirtualPath(requestContext, routeValues);
+
             if (vpd != null)
             {
                 string targetUrl = "~/" + vpd.VirtualPath;
