@@ -14,12 +14,17 @@ namespace RouteMagic.Internals
         {
         }
 
+        public RedirectRoute(RouteBase sourceRoute, RouteBase targetRoute, bool permanent, RouteValueDictionary additionalRouteValues)
+            : this(sourceRoute, targetRoute, permanent, additionalRouteValues, null)
+        {
+        }
+
         public RedirectRoute(
-            RouteBase sourceRoute, 
-            RouteBase targetRoute, 
-            bool permanent, 
-            RouteValueDictionary additionalRouteValues, 
-            Action<RequestContext, RedirectRoute> onRedirectAction = null)
+            RouteBase sourceRoute,
+            RouteBase targetRoute,
+            bool permanent,
+            RouteValueDictionary additionalRouteValues,
+            Action<RequestContext, RedirectRoute> onRedirectAction)
         {
             SourceRoute = sourceRoute;
             TargetRoute = targetRoute;
@@ -28,7 +33,7 @@ namespace RouteMagic.Internals
             OnRedirectAction = onRedirectAction;
         }
 
-        public Action<RequestContext, RedirectRoute> OnRedirectAction { get; set; }
+        public Action<RequestContext, RedirectRoute> OnRedirectAction { get; private set; }
 
         public RouteBase SourceRoute
         {
@@ -123,10 +128,13 @@ namespace RouteMagic.Internals
 
                 //add query strings
                 var qsHelper = requestContext.HttpContext.Request.QueryString;
-                var queryString = String.Join("&", qsHelper.AllKeys.Select(i => i + "=" + qsHelper[i]));
-                if (!string.IsNullOrWhiteSpace(queryString))
+                if (qsHelper != null)
                 {
-                    targetUrl += "?" + queryString;
+                    var queryString = String.Join("&", qsHelper.AllKeys.Select(key => key + "=" + qsHelper[key]));
+                    if (!string.IsNullOrWhiteSpace(queryString))
+                    {
+                        targetUrl += "?" + queryString;
+                    }
                 }
 
                 return new RedirectHttpHandler(targetUrl, Permanent, isReusable: false);
