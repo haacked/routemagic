@@ -1,13 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata", "Metadata", "{88DFFA33-B237-4B28-BE20-EC3B4516BC10}"
-	ProjectSection(SolutionItems) = preProject
-		SolutionInfo.cs = SolutionInfo.cs
-	EndProjectSection
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteMagic", "RouteMagic\RouteMagic.csproj", "{FD31E05E-9916-4219-99C8-8FCC46CAEB54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteMagicDemo.Web", "RouteMagicDemo.Web\RouteMagicDemo.Web.csproj", "{DC6527E3-0946-4C3F-AE16-A41A1890EE3F}"
@@ -15,6 +8,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{DC4C0E90-AD76-4273-B05A-73033CD5145E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteMagic.Mvc", "RouteMagic.Mvc\RouteMagic.Mvc.csproj", "{D9321DA3-F3AC-4567-8452-B1B5D5633045}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata", "Metadata", "{88DFFA33-B237-4B28-BE20-EC3B4516BC10}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionInfo.cs = SolutionInfo.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDebuggerDemoWeb", "RouteDebuggerDemoWeb\RouteDebuggerDemoWeb.csproj", "{40F914CD-F707-4A4D-AF7B-75E8928055BB}"
 EndProject

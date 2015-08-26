@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Request.Url.PathAndQuery</h2>
+
+<div>
+    <ul>
+        <li>@Html.RouteLink("Map DelegateHandler", "map-delegate") @Url.RouteUrl("map-delegate")</li>
+        <li>@Html.RouteLink("Hello World Handler (new instance each request)", "Hello-World") @Url.RouteUrl("hello-world")</li>
+        <li>@Html.RouteLink("Hello World Handler (singleton) ", "hello-world2") @Url.RouteUrl("hello-world2")</li>
+    </ul>
+
+    <h3>GroupRoute Samples</h3>
+    <ul>
+        <li>@Html.RouteLink("Hello World Child", "group", new { __RouteName = "hello-world3" }) 
+        @Url.RouteUrl("group", new { __RouteName = "hello-world3" })</li>
+        <li>@Html.RouteLink("Hello World Child", "group", new { __RouteName = "hello-world4" }) 
+        @Url.RouteUrl("group", new { __RouteName = "hello-world4" })</li>
+    </ul>
+
+    <h3>GroupRoute w/ MVC Children Samples</h3>
+    <ul>
+        <li>@Html.RouteLink("Foo1 Child", "group2", new { controller="Home", __RouteName = "foo1" }) 
+        @Url.RouteUrl("group2", new { controller="Home", __RouteName = "foo1" })</li>
+        <li>@Html.RouteLink("Foo2 Child", "group2", new { controller="Home", __RouteName = "foo2" }) 
+        @Url.RouteUrl("group2", new { controller="Home", __RouteName = "foo2" })</li>
+    </ul>
+
+    <h3>Redirect Samples</h3>
+    <ul>
+        <li><a href="@Url.Content("~/foo/123/baz/index")">@Url.Content("~/foo/123/baz/index")</a> should redirect to <strong>@Url.Content("~/yo/123/index")</strong></li>
+    </ul>
+
+    <h3>Normalized Routes sample</h3>
+    <ul>
+        <li><code>@@Url.RouteUrl("Default", new {controller = "<strong>Home</strong>", action = "<strong>List</strong>"})</code> results in: <strong>@Url.RouteUrl("Default", new {controller = "Home", action = "List"})</strong></li>
+        <li><code>@@Url.RouteUrl("Default", new {controller = "<strong>Home</strong>", action = "<strong>Index</strong>"})</code> results in: <strong>@Url.RouteUrl("Default", new {controller = "Home", action = "Index"})</strong></li>
+        <li><code>@@Url.RouteUrl("Default", new {controller = "<strong>Home</strong>", action = "<strong>List</strong>", extra = "blah"})</code> results in: <strong>@Url.RouteUrl("Default", new {controller = "Home", action = "List", extra = "blah"})</strong></li>
+    </ul>
+
+    <h3>IncomingOnlyRouteConstraint Sample</h3>
+    <ul>
+        <li>This should render a url: @Url.RouteUrl("map-delegate")</li>
+        <li>This should NOT render a url:  @Url.RouteUrl("map-delegate-incoming-only")</li>
+    </ul>
+
+    <h3>URL Generation</h3>
+    <ul>
+        <li>@Url.Action("Index", "Home")</li>
+    </ul>
+
+</div>
