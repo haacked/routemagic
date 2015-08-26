@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Web;
 using System.Web.Routing;
 using Moq;
 using PowerAssert;
+using RouteMagic.HttpHandlers;
 using RouteMagic.Internals;
 using Xunit;
 
@@ -107,6 +109,55 @@ namespace UnitTests.Internals {
 
             // Act, Assert
             Assert.Throws<InvalidOperationException>(() => redirectRoute.To(new Mock<RouteBase>().Object));
+        }
+
+        [Fact]
+        public void GetHttpHandler_OnRedirectionActionIsCalled()
+        {
+            // Arrange
+            var onRedirectCalled = false;
+            Action<RequestContext, RedirectRoute> onRedirection = (context, route) => onRedirectCalled = true;
+
+            var httpContext = new Mock<HttpContextBase>();
+            httpContext.Setup(c => c.Request.Path).Returns("/foo");
+            httpContext.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath).Returns("~/foo");
+            httpContext.Setup(c => c.Request.ApplicationPath).Returns("/");
+            var requestContext = new RequestContext(httpContext.Object, new RouteData());
+
+            var redirectRoute = new RedirectRoute(new Mock<RouteBase>().Object, new Mock<RouteBase>().Object, false, null, onRedirection);
+
+            // Act
+            redirectRoute.GetHttpHandler(requestContext);
+
+            // Assert
+            PAssert.IsTrue(() => onRedirectCalled);
+        }
+
+        [Fact]
+        public void GetHttpHandler_WithQueryString_IsPreserved()
+        {
+            //Arrange
+            var httpContext = new Mock<HttpContextBase>();
+            httpContext.Setup(c => c.Request.QueryString).Returns(new NameValueCollection
+            {
+                {"bar", "biz"},
+                {"car", "cdr"}
+            });
+
+            var requestContext = new RequestContext(httpContext.Object, new RouteData());
+
+            var toMockBase = new Mock<RouteBase>();
+            toMockBase
+                .Setup(r => r.GetVirtualPath(It.IsAny<RequestContext>(), It.IsAny<RouteValueDictionary>()))
+                .Returns(new VirtualPathData(toMockBase.Object, "kittens"));
+
+            var redirectRoute = new RedirectRoute(new Mock<RouteBase>().Object, toMockBase.Object, false);
+
+            // Act
+            var handler = redirectRoute.GetHttpHandler(requestContext);
+
+            // Assert
+            PAssert.IsTrue(() => ((RedirectHttpHandler)handler).TargetUrl == "~/kittens?bar=biz&car=cdr");
         }
 
     }
