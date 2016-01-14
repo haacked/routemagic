@@ -7,6 +7,7 @@ using PowerAssert;
 using RouteMagic;
 using RouteMagic.HttpHandlers;
 using Xunit;
+using RouteBasics;
 
 namespace UnitTests
 {

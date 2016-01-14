@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata", "Metadata", "{88DFFA33-B237-4B28-BE20-EC3B4516BC10}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDebuggerDemoWeb", "RouteDebuggerDemoWeb\RouteDebuggerDemoWeb.csproj", "{40F914CD-F707-4A4D-AF7B-75E8928055BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDebugger", "RouteDebug\RouteDebugger.csproj", "{09548C4E-F0C1-428A-BC3A-BFBB9328D7C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteBasics", "RouteBasics\RouteBasics.csproj", "{305E53A6-D5B1-4A51-AA98-767579130922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{09548C4E-F0C1-428A-BC3A-BFBB9328D7C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09548C4E-F0C1-428A-BC3A-BFBB9328D7C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09548C4E-F0C1-428A-BC3A-BFBB9328D7C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305E53A6-D5B1-4A51-AA98-767579130922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305E53A6-D5B1-4A51-AA98-767579130922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305E53A6-D5B1-4A51-AA98-767579130922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305E53A6-D5B1-4A51-AA98-767579130922}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

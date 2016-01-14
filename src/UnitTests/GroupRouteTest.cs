@@ -5,6 +5,7 @@ using PowerAssert;
 using RouteMagic;
 using RouteMagic.Internals;
 using Xunit;
+using RouteBasics;
 
 namespace UnitTests {
     public class GroupRouteTest {

@@ -1,10 +1,10 @@
 ﻿using System.Web.Routing;
 
-namespace RouteMagic
+namespace RouteBasics
 {
     public static class RouteValueDictionaryExtensions
     {
-        const string RouteNameKey = "__RouteName";
+		 public const string RouteNameKey = "__RouteName";
 
         public static RouteValueDictionary SetRouteName(this RouteValueDictionary routeValues, string routeName)
         {
@@ -29,6 +29,9 @@ namespace RouteMagic
             {
                 return null;
             }
+				if (!routeValues.ContainsKey(RouteNameKey)) {
+					return null;
+				}
             object routeName;
             routeValues.TryGetValue(RouteNameKey, out routeName);
             return routeName as string;

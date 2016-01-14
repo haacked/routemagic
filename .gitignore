@@ -26,3 +26,7 @@ obj/
 *.sig
 _ReSharper*/
 *.orig
+#######
+##  SVN
+#######
+.svn

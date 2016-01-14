@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Web.Compilation;
 using System.Web.Routing;
-using RouteMagic.Internals;
 
-namespace RouteMagic
+namespace RouteBasics
 {
     public static class RouteRegistrationExtensions
     {

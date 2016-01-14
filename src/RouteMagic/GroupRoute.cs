@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Routing;
 using RouteMagic.Internals;
+using RouteBasics;
 
 namespace RouteMagic
 {

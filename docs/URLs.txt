@@ -1,0 +1,5 @@
+http://haacked.com/archive/
+http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx/
+https://github.com/Haacked/RouteMagic
+current routedebugger:
+http://haacked.com/archive/2011/04/13/routedebugger-2.aspx/

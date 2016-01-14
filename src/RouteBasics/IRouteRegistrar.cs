@@ -1,6 +1,6 @@
 ﻿using System.Web.Routing;
 
-namespace RouteMagic
+namespace RouteBasics
 {
     public interface IRouteRegistrar
     {

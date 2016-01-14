@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
+using RouteBasics;
 using RouteMagic.HttpHandlers;
 
 namespace RouteMagic.Internals
 {
     // Craziness! In this case, there's no reason the route can't be its own route handler.
-    public class RedirectRoute : RouteBase, IRouteHandler
+	public class RedirectRoute : RouteBase, IRouteHandler
     {
         public RedirectRoute(RouteBase sourceRoute, RouteBase targetRoute, bool permanent)
             : this(sourceRoute, targetRoute, permanent, null, null)
@@ -141,6 +142,5 @@ namespace RouteMagic.Internals
             }
             return new DelegateHttpHandler(rc => rc.HttpContext.Response.StatusCode = 404, requestContext.RouteData, false);
         }
-
-    }
+	 }
 }

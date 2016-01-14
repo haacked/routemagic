@@ -4,6 +4,7 @@ using System.Web.Routing;
 using RouteMagic.HttpHandlers;
 using RouteMagic.Internals;
 using RouteMagic.RouteHandlers;
+using RouteBasics;
 
 namespace RouteMagic
 {
@@ -66,37 +67,5 @@ namespace RouteMagic
             return routes.MapHttpHandler(name, url, null, constraints, requestContext => new DelegateHttpHandler(handler, requestContext.RouteData, false));
         }
 
-        public static string GetRouteName(this Route route)
-        {
-            if (route == null)
-            {
-                return null;
-            }
-            return route.DataTokens.GetRouteName();
-        }
-
-        public static string GetRouteName(this RouteData routeData)
-        {
-            if (routeData == null)
-            {
-                return null;
-            }
-            return routeData.DataTokens.GetRouteName();
-        }
-
-
-        public static Route SetRouteName(this Route route, string routeName)
-        {
-            if (route == null)
-            {
-                throw new ArgumentNullException("route");
-            }
-            if (route.DataTokens == null)
-            {
-                route.DataTokens = new RouteValueDictionary();
-            }
-            route.DataTokens.SetRouteName(routeName);
-            return route;
-        }
     }
 }

@@ -2,6 +2,7 @@
 using PowerAssert;
 using RouteMagic;
 using Xunit;
+using RouteBasics;
 
 namespace UnitTests {
     public class RouteValueDictionaryExtensionsTest {

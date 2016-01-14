@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using RouteMagic;
 using RouteMagicDemo.Web.HttpHandlers;
+using RouteBasics;
 
 namespace RouteMagicDemo.Web {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 

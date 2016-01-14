@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 
-namespace RouteMagic.Internals
+namespace RouteBasics
 {
     public class ConfigFileChangeNotifier
     {
