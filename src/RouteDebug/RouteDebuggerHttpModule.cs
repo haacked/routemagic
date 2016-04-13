@@ -14,8 +14,15 @@ namespace RouteDebug
 
         static void OnBeginRequest(object sender, System.EventArgs e)
         {
-            if (RouteTable.Routes.Last() != DebugRoute.Singleton)
+            if (RouteTable.Routes.Last() == DebugRoute.Singleton)
+                return;
+
+            using (RouteTable.Routes.GetWriteLock())
             {
+                // We may have lost the race (if any), check again
+                if (RouteTable.Routes.Last() == DebugRoute.Singleton)
+                    return;
+
                 RouteTable.Routes.Add(DebugRoute.Singleton);
             }
         }
