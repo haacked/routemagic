@@ -10,6 +10,7 @@
     <releaseNotes>
         * 2.1.1 No longer appends route info to the end of requests for files on disk.
         * 2.1.4 Adds a bit of padding to the debug output.
+        * 2.1.5 Fixed race condition when adding debug route fixed by Nils Edström.
     </releaseNotes>
     <summary>$description$</summary>
     <language>en-US</language>
