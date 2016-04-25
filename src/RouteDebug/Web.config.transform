@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <appSettings>
-    <add key="RouteDebugger:Enabled" value="true" xdt:Transform="SetAttributes" xdt:Locator="Match(key)"/>
+    <add key="RouteDebugger:Enabled" value="true" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
   </appSettings>
 </configuration>
